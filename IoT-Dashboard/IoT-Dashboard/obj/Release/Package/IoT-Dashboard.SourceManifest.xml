@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
-  <IisApp path="C:\Users\Cesar\Desktop\IoT-Dashboard\IoT-Dashboard\obj\Release\Package\PackageTmp" />
-  <setAcl path="C:\Users\Cesar\Desktop\IoT-Dashboard\IoT-Dashboard\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
-  <setAcl path="C:\Users\Cesar\Desktop\IoT-Dashboard\IoT-Dashboard\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+  <IisApp path="D:\Google Drive\URL\10mo CIclo\Tecnologías Emergentes\IoT-Project\url-IoT\IoT-Dashboard\IoT-Dashboard\obj\Release\Package\PackageTmp" />
+  <setAcl path="D:\Google Drive\URL\10mo CIclo\Tecnologías Emergentes\IoT-Project\url-IoT\IoT-Dashboard\IoT-Dashboard\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="D:\Google Drive\URL\10mo CIclo\Tecnologías Emergentes\IoT-Project\url-IoT\IoT-Dashboard\IoT-Dashboard\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
 </sitemanifest>

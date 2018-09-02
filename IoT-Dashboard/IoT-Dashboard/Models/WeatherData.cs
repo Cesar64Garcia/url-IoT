@@ -7,7 +7,7 @@ namespace IoT_Dashboard.Models
 {
     public class WeatherData
     {
-        public double Humidity { get; set; }
+        public double Humidity  { get; set; }
         public double TempC { get; set; }
         public double Pressure { get; set; }
         public double TempF { get; set; }
