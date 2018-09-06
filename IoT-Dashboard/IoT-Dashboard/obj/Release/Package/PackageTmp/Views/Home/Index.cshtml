@@ -1,14 +1,33 @@
 ﻿<div class="row">
     <div class="col-lg-6">
-        <canvas id="temptureChart"></canvas>
+        <div class="chart-wrapper">
+            <canvas id="temptureChart"></canvas>
+        </div>
     </div>
     <div class="col-lg-6">
-        <canvas id="humidityChart"></canvas>
+        <div class="chart-wrapper">
+            <canvas id="humidityChart"></canvas>
+        </div>
     </div>
     <div class="col-lg-6">
-        <canvas id="pressureChart"></canvas>
+        <div class="chart-wrapper">
+            <canvas id="pressureChart"></canvas>
+        </div>
     </div>
     <div class="col-lg-6">
-        <canvas id="lightChart"></canvas>
+        <div class="chart-wrapper">
+            <canvas id="lightChart"></canvas>
+        </div>
     </div>
 </div>
+
+<style>
+    .row {
+        padding-top: 30px;
+    }
+
+    .chart-wrapper {
+        position: relative;
+        margin: 10px 30px auto auto;
+    }
+</style>

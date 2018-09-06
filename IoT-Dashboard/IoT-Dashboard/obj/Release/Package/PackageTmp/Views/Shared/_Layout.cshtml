@@ -52,20 +52,19 @@
 
             // The data for our dataset
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: [],
                 datasets: [{
                     label: "Tempeture C.",
                     backgroundColor: 'rgb(255, 20, 20)',
                     borderColor: 'rgb(255, 20, 20)',
-                    data: [0, 10, 5, 2, 20, 30, 45],
+                    data: [],
                 }, {
                     label: "Tempeture F.",
                     backgroundColor: 'rgb(196, 7, 7)',
                     borderColor: 'rgb(196, 7, 7)',
-                    data: [0, 10, 5, 2, 20, 30, 45],
+                    data: [],
                 }]
             },
-
             // Configuration options go here
             options: {}
         });
@@ -76,15 +75,14 @@
 
             // The data for our dataset
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: [],
                 datasets: [{
                     label: "Humidity",
                     backgroundColor: 'rgba(15, 167, 255, .6)',
                     borderColor: 'rgb(15, 167, 255)',
-                    data: [0, 10, 5, 2, 20, 30, 45],
+                    data: [],
                 }]
             },
-
             // Configuration options go here
             options: {}
         });
@@ -95,12 +93,12 @@
 
             // The data for our dataset
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: [],
                 datasets: [{
                     label: "Pressure",
                     backgroundColor: 'rgba(141, 0, 188, .6 )',
                     borderColor: 'rgb(141, 0, 188)',
-                    data: [0, 10, 5, 2, 20, 30, 45],
+                    data: [],
                     fill: 'top'
                 }]
             },
@@ -126,27 +124,27 @@
 
             // The data for our dataset
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: [],
                 datasets: [{
                     label: "Light",
                     backgroundColor: 'rgb(255, 205, 79)',
                     borderColor: 'rgb(255, 205, 79)',
-                    data: [0, 1, 5, 2, 2, 3, 1],
+                    data: [],
                     pointStyle: 'star',
                     pointRadius: 10,
                     showLine: false,
                     fill: false
                 }]
             },
-
             // Configuration options go here
             options: {}
         });
+
     </script>
 
     <script>
         $.connection.hub.start()
-            .done( function () {
+            .done(function () {
                 console.log("Successful connection")
             });
 
@@ -159,7 +157,7 @@
             var h = d.getHours() > 10 ? d.getHours() : "0" + d.getHours();
             var m = d.getMinutes() > 10 ? d.getMinutes() : "0" + d.getMinutes();
             var s = d.getSeconds() > 10 ? d.getSeconds() : "0" + d.getSeconds();
-            var time = h + ":" + m + ":" + s; 
+            var time = h + ":" + m + ":" + s;
 
             updateChart(humidityChart, time, [humidity]);
             updateChart(pressureChart, time, [pressure]);
@@ -170,14 +168,23 @@
         function updateChart(chart, label, data) {
             var i = 0;
             chart.data.labels.push(label);
+
+            var shift = chart.data.labels.length > 17;
+            if (shift) {
+                chart.data.labels.shift();
+            }
+
             chart.data.datasets.forEach((dataset) => {
                 dataset.data.push(data[i]);
+                if (shift) {
+                    dataset.data.shift();
+                }
                 i++;
             });
             chart.update();
         }
     </script>
 
-    
+
 </body>
 </html>

@@ -1,0 +1,74 @@
+#r "Newtonsoft.Json"
+#r "System.Configuration"
+#r "System.Data"
+
+using System.Text;
+using System.Net;
+using Newtonsoft.Json;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Headers;
+
+public static async Task<HttpResponseMessage> Run(HttpRequestMessage req, TraceWriter log)
+{
+    log.Info("C# HTTP trigger function processed a request for Venganza Weather Station.");
+ 
+    try
+    {
+        dynamic body = await req.Content.ReadAsStringAsync();
+        //JSON
+        var e = JsonConvert.DeserializeObject<WeatherData>(body as string);
+
+        //Data base 
+        var str = ConfigurationManager.ConnectionStrings["venganza-sql-function-connection"].ConnectionString;
+        using (SqlConnection conn = new SqlConnection(str))
+        {
+            conn.Open();
+            var text = "INSERT WeatherDataTable (HUMIDITY, TEMPC, PRESSURE, TEMPF, LIGHTLVL, BATTERYLVL)" + 
+                    " VALUES ("+ 
+                    e.Humidity.ToString() +","+                
+                    e.TempC.ToString() +","+                
+                    e.Pressure.ToString() +","+                
+                    e.TempF.ToString() +","+                
+                    e.LightLvl.ToString() +", 100)" ;
+            //log.Info(text);
+            using (SqlCommand cmd = new SqlCommand(text, conn))
+            {
+                // Execute the command and log the # rows affected.
+                var rows = await cmd.ExecuteNonQueryAsync();
+                log.Info($"{rows} rows were updated");
+            }
+        }
+
+        log.Info(postData("'"+body+"'") + " data ");
+
+        //response code
+        return req.CreateResponse(HttpStatusCode.OK, "EEEEXIITO!");
+    }
+    catch (Exception er)
+    {
+        return req.CreateResponse(HttpStatusCode.InternalServerError, er);
+    }
+}
+
+public static string postData(string json){
+    using(var client = new HttpClient())
+    {
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var result = client.PostAsync("http://iot-dashboard20180901112819.azurewebsites.net/api/weather", content).Result;
+        return json;
+    }
+    return json;
+}
+
+public class WeatherData
+{
+    public double Humidity { get; set; }
+    public double TempC { get; set; }
+    public double Pressure { get; set; }
+    public double TempF { get; set; }
+    public double LightLvl { get; set; }
+    public double BatteryLvl { get; set; }
+}
